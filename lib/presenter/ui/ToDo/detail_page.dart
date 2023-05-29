@@ -1,19 +1,21 @@
-import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_fundamental/data/color.dart';
 import 'package:flutter_fundamental/data/model/todo_entity.dart';
+import 'package:flutter_fundamental/presenter/ui/ToDo/main_page.dart';
 
 import '../../../data/enum/priority.dart';
 
 @RoutePage()
 class DetailPage extends StatelessWidget {
-  DetailPage({Key? key, required this.appBarTitle}) : super(key: key);
-  final String appBarTitle;
-  ToDoEntity? toDoEntity;
+  DetailPage({Key? key, required this.isAdd, this.toDoEntity})
+      : super(key: key);
+  final bool isAdd;
+  final ToDoEntity? toDoEntity;
 
-  final listPriorityDropdownItems =
-      Priority.values.map((e) => DropdownMenuItem<Priority>(value: e, child: Text(e.value)));
+  final listPriorityDropdownItems = Priority.values
+      .map((e) => DropdownMenuItem<Priority>(value: e, child: Text(e.value)));
 
   Priority? _dropdownValue;
   String? _title;
@@ -22,10 +24,21 @@ class DetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final mediaQuerySize = MediaQuery.of(context).size;
+    _dropdownValue = toDoEntity?.priority;
+    _title = toDoEntity?.title;
+    _description = toDoEntity?.description;
     return Scaffold(
       appBar: AppBar(
-        leading: const Icon(Icons.arrow_back),
-        title: Text(appBarTitle),
+        leading: IconButton(
+          onPressed: () {
+            context.router.pop();
+          },
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
+        ),
+        title: Text(isAdd ? 'Add Todo' : 'Edit Todo'),
         centerTitle: true,
         titleTextStyle: const TextStyle(
           color: Colors.white,
@@ -43,7 +56,7 @@ class DetailPage extends StatelessWidget {
             mainAxisSize: MainAxisSize.max,
             children: [
               DropdownButtonFormField2<Priority>(
-                value: toDoEntity?.priority ?? Priority.high,
+                value: _dropdownValue ?? toDoEntity?.priority ?? Priority.high,
                 decoration: InputDecoration(
                   labelText: 'Priority',
                   labelStyle: const TextStyle(
@@ -83,6 +96,7 @@ class DetailPage extends StatelessWidget {
               ),
               const SizedBox(height: 24),
               TextFormField(
+                initialValue: _title ?? toDoEntity?.title,
                 onChanged: (value) {
                   _title = value;
                 },
@@ -109,6 +123,7 @@ class DetailPage extends StatelessWidget {
               ),
               const SizedBox(height: 24),
               TextFormField(
+                initialValue: _description ?? toDoEntity?.description,
                 onChanged: (value) {
                   _description = value;
                 },
@@ -119,8 +134,8 @@ class DetailPage extends StatelessWidget {
                     backgroundColor: Color(0xFFFEF7FF),
                     fontSize: 12,
                   ),
-                  hintText: 'Input title',
-                  hintStyle: TextStyle(color: Colors.black),
+                  hintText: 'Input description',
+                  hintStyle: const TextStyle(color: Colors.black),
                   fillColor: Colors.white,
                   filled: true,
                   focusedBorder: OutlineInputBorder(
@@ -148,9 +163,34 @@ class DetailPage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(100),
               ),
               backgroundColor: ColorsUtil.primaryColor),
-          onPressed: () {},
-          child: const Center(
-            child: Text('Add'),
+          onPressed: () {
+            if (isAdd) {
+              if (![_dropdownValue, _title, _description].contains(null)) {
+                final newId = listToDoEntity.reduce((value, element) {
+                  return value.id! > element.id! ? value : element;
+                }).id;
+                listToDoEntity.add(ToDoEntity(
+                    id: newId,
+                    priority: _dropdownValue!,
+                    title: _title!,
+                    description: _description!));
+              }
+            } else {
+              listToDoEntity
+                  .removeWhere((element) => element.id == toDoEntity?.id);
+              listToDoEntity.add(ToDoEntity(
+                  id: toDoEntity?.id,
+                  priority: _dropdownValue!,
+                  title: _title!,
+                  description: _description!));
+            }
+            context.router.pop();
+          },
+          child: Center(
+            child: Text(
+              isAdd ? 'Add' : 'Edit',
+              style: const TextStyle(color: Colors.white),
+            ),
           ),
         ),
       ),

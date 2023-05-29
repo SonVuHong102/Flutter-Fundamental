@@ -1,27 +1,40 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_fundamental/data/color.dart';
+import 'package:flutter_fundamental/gen/route.gr.dart';
 import 'package:flutter_fundamental/presenter/ui/ToDo/todo_item.dart';
 
 import '../../../data/enum/priority.dart';
 import '../../../data/model/todo_entity.dart';
 
 List<ToDoEntity> listToDoEntity = List.generate(
-  15,
+  3,
   (index) => ToDoEntity(
-    priority: Priority.high,
+    id: index,
+    priority: Priority.medium,
     title: 'List item',
-    description: 'Supporting line text lorem ipsum dolor sit amet, consectetur.',
+    description:
+        'Supporting line text lorem ipsum dolor sit amet, consectetur.',
   ),
 );
 
-class MainPage extends StatelessWidget {
+@RoutePage()
+class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
 
+  @override
+  State<MainPage> createState() => _MainPageState();
+}
+
+class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Todo List App'),
+        title: const Text(
+          'Todo List App',
+          style: TextStyle(color: Colors.white),
+        ),
         centerTitle: true,
         backgroundColor: ColorsUtil.primaryColor,
       ),
@@ -36,7 +49,13 @@ class MainPage extends StatelessWidget {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () async {
+          await context.router.push(DetailRoute(isAdd: true));
+          setState(() {});
+        },
+        child: const Icon(
+          Icons.add,
+        ),
       ),
     );
   }

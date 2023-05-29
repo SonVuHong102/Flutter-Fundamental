@@ -1,21 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_fundamental/presenter/ui/ToDo/main_page.dart';
+
+import '../../gen/route.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
+
+  final _appRouter = AppRouter();
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        colorSchemeSeed: const Color(0xff6750a4),
+        useMaterial3: true,
       ),
-      home: const MainPage(),
+      routerConfig: _appRouter.config(),
+
     );
   }
 }

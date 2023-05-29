@@ -1,4 +1,7 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_fundamental/gen/route.gr.dart';
+import 'package:flutter_fundamental/presenter/ui/ToDo/main_page.dart';
 
 import '../../../data/model/todo_entity.dart';
 
@@ -34,12 +37,18 @@ class TodoItem extends StatelessWidget {
                 ),
               ),
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  context.router
+                      .push(DetailRoute(isAdd: false, toDoEntity: toDoEntity));
+                },
                 icon: const Icon(Icons.edit, size: 18),
               ),
               const SizedBox(width: 0),
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  listToDoEntity
+                      .removeWhere((element) => element.id == toDoEntity.id);
+                },
                 icon: const Icon(Icons.delete, size: 18),
               )
             ],
