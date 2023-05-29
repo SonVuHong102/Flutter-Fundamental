@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_fundamental/gen/fonts.gen.dart';
 
-import 'gen/assets.gen.dart';
+import '../../gen/assets.gen.dart';
 
 class SignupPage extends StatelessWidget {
   const SignupPage({Key? key}) : super(key: key);
@@ -19,8 +19,7 @@ class SignupPage extends StatelessWidget {
               height: 300,
               child: Container(
                 decoration: const BoxDecoration(
-                  borderRadius:
-                      BorderRadius.only(bottomLeft: Radius.circular(100)),
+                  borderRadius: BorderRadius.only(bottomLeft: Radius.circular(100)),
                   color: Colors.orange,
                 ),
                 child: Padding(
@@ -36,10 +35,7 @@ class SignupPage extends StatelessWidget {
                         width: double.infinity,
                         child: Text(
                           'Signup For Free',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 25,
-                              fontFamily: FontFamily.aria),
+                          style: TextStyle(color: Colors.white, fontSize: 25, fontFamily: FontFamily.aria),
                           textDirection: TextDirection.rtl,
                         ),
                       )
@@ -55,8 +51,7 @@ class SignupPage extends StatelessWidget {
                 children: [
                   TextField(
                     decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(50)),
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(50)),
                         fillColor: Colors.white,
                         filled: true,
                         hintText: 'Fullname',
@@ -65,8 +60,7 @@ class SignupPage extends StatelessWidget {
                   const SizedBox(height: 10),
                   TextField(
                     decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(50)),
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(50)),
                         fillColor: Colors.white,
                         filled: true,
                         hintText: 'Fullname',
@@ -75,8 +69,7 @@ class SignupPage extends StatelessWidget {
                   const SizedBox(height: 10),
                   TextField(
                     decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(50)),
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(50)),
                         fillColor: Colors.white,
                         filled: true,
                         hintText: 'Fullname',
@@ -85,8 +78,7 @@ class SignupPage extends StatelessWidget {
                   const SizedBox(height: 10),
                   TextField(
                     decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(50)),
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(50)),
                         fillColor: Colors.white,
                         filled: true,
                         hintText: 'Fullname',
