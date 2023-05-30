@@ -3,19 +3,18 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_fundamental/data/color.dart';
 import 'package:flutter_fundamental/data/model/todo_entity.dart';
-import 'package:flutter_fundamental/presenter/ui/ToDo/main_page.dart';
 
 import '../../../data/enum/priority.dart';
+import '../../../data/static/todo_data.dart';
 
 @RoutePage()
 class DetailPage extends StatelessWidget {
-  DetailPage({Key? key, required this.isAdd, this.toDoEntity})
-      : super(key: key);
+  DetailPage({Key? key, required this.isAdd, this.toDoEntity}) : super(key: key);
   final bool isAdd;
   final ToDoEntity? toDoEntity;
 
-  final listPriorityDropdownItems = Priority.values
-      .map((e) => DropdownMenuItem<Priority>(value: e, child: Text(e.value)));
+  final listPriorityDropdownItems =
+      Priority.values.map((e) => DropdownMenuItem<Priority>(value: e, child: Text(e.value)));
 
   Priority? _dropdownValue;
   String? _title;
@@ -169,20 +168,13 @@ class DetailPage extends StatelessWidget {
                 final newId = listToDoEntity.reduce((value, element) {
                   return value.id! > element.id! ? value : element;
                 }).id;
-                listToDoEntity.add(ToDoEntity(
-                    id: newId,
-                    priority: _dropdownValue!,
-                    title: _title!,
-                    description: _description!));
+                listToDoEntity
+                    .add(ToDoEntity(id: newId, priority: _dropdownValue!, title: _title!, description: _description!));
               }
             } else {
-              listToDoEntity
-                  .removeWhere((element) => element.id == toDoEntity?.id);
+              listToDoEntity.removeWhere((element) => element.id == toDoEntity?.id);
               listToDoEntity.add(ToDoEntity(
-                  id: toDoEntity?.id,
-                  priority: _dropdownValue!,
-                  title: _title!,
-                  description: _description!));
+                  id: toDoEntity?.id, priority: _dropdownValue!, title: _title!, description: _description!));
             }
             context.router.pop();
           },

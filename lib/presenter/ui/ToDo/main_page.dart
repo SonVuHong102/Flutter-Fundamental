@@ -4,19 +4,7 @@ import 'package:flutter_fundamental/data/color.dart';
 import 'package:flutter_fundamental/gen/route.gr.dart';
 import 'package:flutter_fundamental/presenter/ui/ToDo/todo_item.dart';
 
-import '../../../data/enum/priority.dart';
-import '../../../data/model/todo_entity.dart';
-
-List<ToDoEntity> listToDoEntity = List.generate(
-  3,
-  (index) => ToDoEntity(
-    id: index,
-    priority: Priority.medium,
-    title: 'List item',
-    description:
-        'Supporting line text lorem ipsum dolor sit amet, consectetur.',
-  ),
-);
+import '../../../data/static/todo_data.dart';
 
 @RoutePage()
 class MainPage extends StatefulWidget {
@@ -26,9 +14,21 @@ class MainPage extends StatefulWidget {
   State<MainPage> createState() => _MainPageState();
 }
 
+void sortList() {
+  listToDoEntity.sort(
+    (a, b) {
+      if (a.priority.priority == b.priority.priority) {
+        return a.title.compareTo(b.title);
+      }
+      return a.priority.priority.compareTo(b.priority.priority);
+    },
+  );
+}
+
 class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
+    sortList();
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -43,6 +43,9 @@ class _MainPageState extends State<MainPage> {
         itemCount: listToDoEntity.length,
         itemBuilder: (_, index) => TodoItem(
           toDoEntity: listToDoEntity[index],
+          onModifySuccess: () {
+            setState(() {});
+          },
         ),
         separatorBuilder: (BuildContext context, int index) {
           return const SizedBox(height: 10);

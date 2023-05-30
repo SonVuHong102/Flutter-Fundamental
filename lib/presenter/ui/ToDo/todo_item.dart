@@ -1,13 +1,14 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_fundamental/gen/route.gr.dart';
-import 'package:flutter_fundamental/presenter/ui/ToDo/main_page.dart';
 
 import '../../../data/model/todo_entity.dart';
+import '../../../data/static/todo_data.dart';
 
 class TodoItem extends StatelessWidget {
-  const TodoItem({Key? key, required this.toDoEntity}) : super(key: key);
+  const TodoItem({Key? key, required this.toDoEntity, required this.onModifySuccess}) : super(key: key);
   final ToDoEntity toDoEntity;
+  final VoidCallback onModifySuccess;
 
   @override
   Widget build(BuildContext context) {
@@ -37,17 +38,19 @@ class TodoItem extends StatelessWidget {
                 ),
               ),
               IconButton(
-                onPressed: () {
-                  context.router
-                      .push(DetailRoute(isAdd: false, toDoEntity: toDoEntity));
+                onPressed: () async {
+                  await context.router.push(DetailRoute(isAdd: false, toDoEntity: toDoEntity));
+                  onModifySuccess();
+                  print(listToDoEntity.length);
                 },
                 icon: const Icon(Icons.edit, size: 18),
               ),
               const SizedBox(width: 0),
               IconButton(
                 onPressed: () {
-                  listToDoEntity
-                      .removeWhere((element) => element.id == toDoEntity.id);
+                  listToDoEntity.removeWhere((element) => element.id == toDoEntity.id);
+                  onModifySuccess();
+                  print(listToDoEntity.length);
                 },
                 icon: const Icon(Icons.delete, size: 18),
               )
