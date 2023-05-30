@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +25,7 @@ class DetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final mediaQuerySize = MediaQuery.of(context).size;
-    _dropdownValue = toDoEntity?.priority;
+    _dropdownValue = toDoEntity?.priority ?? Priority.high;
     _title = toDoEntity?.title;
     _description = toDoEntity?.description;
     return Scaffold(
@@ -165,9 +167,11 @@ class DetailPage extends StatelessWidget {
           onPressed: () {
             if (isAdd) {
               if (![_dropdownValue, _title, _description].contains(null)) {
-                final newId = listToDoEntity.reduce((value, element) {
-                  return value.id! > element.id! ? value : element;
-                }).id;
+                var maxId = listToDoEntity.first.id ?? 1;
+                for (var element in listToDoEntity) {
+                  maxId = max(maxId, element.id ?? 1);
+                }
+                final newId = maxId + 1;
                 listToDoEntity
                     .add(ToDoEntity(id: newId, priority: _dropdownValue!, title: _title!, description: _description!));
               }
