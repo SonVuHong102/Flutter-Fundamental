@@ -12,4 +12,7 @@ class FontFamily {
 
   /// Font family: Aria
   static const String aria = 'Aria';
+
+  /// Font family: Rubik
+  static const String rubik = 'Rubik';
 }

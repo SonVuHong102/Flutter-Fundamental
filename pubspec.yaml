@@ -45,6 +45,8 @@ dependencies:
 
   intl: ^0.18.1
 
+  english_words: ^4.0.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -102,6 +104,11 @@ flutter:
     - family: Aria
       fonts:
         - asset: assets/fonts/Aria_Regular.ttf
+
+    - family: Rubik
+      fonts:
+        - asset: assets/fonts/Rubik_Italic_VariableFont_wght.ttf
+        - asset: assets/fonts/Rubik_VariableFont_wght.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

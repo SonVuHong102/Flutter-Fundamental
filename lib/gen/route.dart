@@ -5,7 +5,8 @@ import 'package:flutter_fundamental/gen/route.gr.dart';
 class AppRouter extends $AppRouter {
   @override
   List<AutoRoute> get routes => [
-        AutoRoute(page: MainRoute.page, initial: true),
+        AutoRoute(page: TravelMainRoute.page, initial: true),
+        AutoRoute(page: MainRoute.page),
         AutoRoute(page: DetailRoute.page),
       ];
 }
