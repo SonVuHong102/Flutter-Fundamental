@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../gen/route.dart';
+import 'gen/route.dart';
 
 void main() {
   runApp(MyApp());
@@ -20,7 +20,6 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       routerConfig: _appRouter.config(),
-
     );
   }
 }

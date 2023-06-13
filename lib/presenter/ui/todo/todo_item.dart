@@ -6,7 +6,9 @@ import '../../../data/model/todo_entity.dart';
 import '../../../data/static/todo_data.dart';
 
 class TodoItem extends StatelessWidget {
-  const TodoItem({Key? key, required this.toDoEntity, required this.onModifySuccess}) : super(key: key);
+  const TodoItem(
+      {Key? key, required this.toDoEntity, required this.onModifySuccess})
+      : super(key: key);
   final ToDoEntity toDoEntity;
   final VoidCallback onModifySuccess;
 
@@ -39,7 +41,8 @@ class TodoItem extends StatelessWidget {
               ),
               IconButton(
                 onPressed: () async {
-                  await context.router.push(DetailRoute(isAdd: false, toDoEntity: toDoEntity));
+                  await context.router
+                      .push(DetailRoute(isAdd: false, toDoEntity: toDoEntity));
                   onModifySuccess();
                   print(listToDoEntity.length);
                 },
@@ -48,9 +51,9 @@ class TodoItem extends StatelessWidget {
               const SizedBox(width: 0),
               IconButton(
                 onPressed: () {
-                  listToDoEntity.removeWhere((element) => element.id == toDoEntity.id);
+                  listToDoEntity
+                      .removeWhere((element) => element.id == toDoEntity.id);
                   onModifySuccess();
-                  print(listToDoEntity.length);
                 },
                 icon: const Icon(Icons.delete, size: 18),
               )

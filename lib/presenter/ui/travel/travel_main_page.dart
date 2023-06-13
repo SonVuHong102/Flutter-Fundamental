@@ -1,9 +1,11 @@
 import 'dart:math';
 
-import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_fundamental/gen/fonts.gen.dart';
+import 'package:flutter_fundamental/gen/route.gr.dart';
+import 'package:flutter_fundamental/presenter/ui/travel/app_bottom_navigation.dart';
 import 'package:flutter_fundamental/presenter/ui/travel/category_item.dart';
 import 'package:flutter_fundamental/presenter/ui/travel/view_item.dart';
 
@@ -19,7 +21,8 @@ class _TravelMainPageState extends State<TravelMainPage> {
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
-    final categoryCount = 10;
+    const categoryCount = 12;
+    const itemCount = 12;
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -86,9 +89,11 @@ class _TravelMainPageState extends State<TravelMainPage> {
                             filled: true,
                             fillColor: const Color(0xFFF8F8F8),
                             enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(16), borderSide: BorderSide.none),
+                                borderRadius: BorderRadius.circular(16),
+                                borderSide: BorderSide.none),
                             focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(16), borderSide: BorderSide.none),
+                                borderRadius: BorderRadius.circular(16),
+                                borderSide: BorderSide.none),
                             hintText: 'Enter name or category',
                             hintStyle: const TextStyle(
                               fontSize: 15,
@@ -133,7 +138,8 @@ class _TravelMainPageState extends State<TravelMainPage> {
                               );
                             }
                           },
-                          separatorBuilder: (_, __) => const SizedBox(width: 12),
+                          separatorBuilder: (_, __) =>
+                              const SizedBox(width: 12),
                         ),
                       ),
                       const SizedBox(height: 28),
@@ -155,13 +161,19 @@ class _TravelMainPageState extends State<TravelMainPage> {
                         child: ListView.separated(
                           physics: const ClampingScrollPhysics(),
                           scrollDirection: Axis.horizontal,
-                          itemCount: 5,
+                          itemCount: itemCount,
                           itemBuilder: (_, index) {
+                            if (index == 0 || index == itemCount - 1) {
+                              return const SizedBox(width: 12);
+                            }
                             return ViewItem(
-                              onTab: () {},
+                              onTab: () {
+                                context.router.push(const TravelDetailRoute());
+                              },
                             );
                           },
-                          separatorBuilder: (_, __) => const SizedBox(width: 12),
+                          separatorBuilder: (_, __) =>
+                              const SizedBox(width: 12),
                         ),
                       ),
                     ],
@@ -171,6 +183,7 @@ class _TravelMainPageState extends State<TravelMainPage> {
             ],
           ),
         ),
+        bottomNavigationBar: AppBottomNavigation(),
       ),
     );
   }
