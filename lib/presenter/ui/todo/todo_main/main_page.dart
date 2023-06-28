@@ -1,10 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_fundamental/data/color.dart';
+import 'package:flutter_fundamental/data/local_data_source/local_data_source.dart';
+import 'package:flutter_fundamental/data/model/todo_entity.dart';
 import 'package:flutter_fundamental/gen/route.gr.dart';
-import 'package:flutter_fundamental/presenter/ui/ToDo/todo_item.dart';
-
-import '../../../data/static/todo_data.dart';
+import 'package:flutter_fundamental/presenter/ui/todo/todo_main/todo_item.dart';
 
 @RoutePage()
 class MainPage extends StatefulWidget {
@@ -14,7 +14,7 @@ class MainPage extends StatefulWidget {
   State<MainPage> createState() => _MainPageState();
 }
 
-void sortList() {
+void sortList(List<ToDoEntity> listToDoEntity) {
   listToDoEntity.sort(
     (a, b) {
       if (a.priority.priority == b.priority.priority) {
@@ -28,7 +28,8 @@ void sortList() {
 class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
-    sortList();
+    final listToDoEntity = LocalDataSource.toDoListEntity;
+    sortList(LocalDataSource.toDoListEntity);
     return Scaffold(
       appBar: AppBar(
         title: const Text(
